@@ -1,0 +1,40 @@
+.cell {
+  width: 25px; /* Width of each cell */
+  height: 25px; /* Height of each cell */
+  border: 1px solid #000; /* Border to distinguish cells */
+  float: left; /* Align cells next to each other */
+  margin: 1px; /* Optional: Adds a little space between cells */
+}
+
+.grid-container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.grid-container {
+  margin: 0 auto;
+  width: 500px;
+  display: flex;
+  gap: 300px;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 5px;
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 1;
+}
+
+.computer-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 5px;
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 1;
+}
