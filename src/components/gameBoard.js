@@ -42,14 +42,30 @@ export class GameBoard {
       this.board[attackRow][attackCol] = "miss";
       return false;
     } else if (target && target.type === "ship") {
-      target.hit();
+      // Calculate the hit position relative to the start of the ship
+      let shipInfo = this.ships.find((shipInfo) => shipInfo.ship === target);
+      let hitPosition;
+      if (shipInfo.direction === "horizontal") {
+        hitPosition = attackCol - shipInfo.startPosition[1];
+      } else {
+        // shipInfo.direction === "vertical"
+        hitPosition = attackRow - shipInfo.startPosition[0];
+      }
+
+      // Call the hit method with the hit position
+      target.hit(hitPosition);
       this.board[attackRow][attackCol] = "hit";
+
+      // Check if the ship is sunk
+      if (target.isSunk()) {
+        console.log("You sunk my battleship!");
+      }
+
       return true;
     } else {
       return false;
     }
   }
-
   allSunk() {
     return this.ships.every((shipInfo) => shipInfo.ship.isSunk());
   }

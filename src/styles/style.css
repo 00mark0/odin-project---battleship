@@ -74,6 +74,14 @@
   width: 125px; /* Adjusted from 131px */
 }
 
-.occupied {
+.cell.occupied {
   background-color: #000;
+}
+
+.cell.hit {
+  background-color: red !important;
+}
+
+.cell.miss {
+  background-color: blue !important;
 }
