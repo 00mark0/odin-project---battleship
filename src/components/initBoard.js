@@ -8,7 +8,7 @@ export function initBoard(dom) {
 
   for (let i = 0; i < 100; i++) {
     let cpuCell = document.createElement("div");
-    cpuCell.classList.add("cpuCell");
+    cpuCell.classList.add("cpu-cell");
     cpuCell.setAttribute("data-index", i);
     dom.computerGrid.appendChild(cpuCell);
   }

@@ -1,8 +1,6 @@
 import gameMenuHTML from "./components/gameMenuHTML";
 import initDomElements from "./components/domElements";
 import gameSetupHTML from "./components/gameSetupHTML";
-import Ship from "./components/ship";
-import GameBoard from "./components/gameBoard";
 import { initBoard } from "./components/initBoard";
 import {
   handleDragStart,
@@ -11,6 +9,7 @@ import {
 } from "./components/dragDrop";
 import { rotateShip } from "./components/rotateShip";
 import { playerBoard } from "./components/dragDrop";
+import { playGame } from "./components/playGame";
 import "./styles/style.css";
 
 const app = document.getElementById("app");
@@ -52,8 +51,12 @@ function setupPage() {
   });
 
   domElements.start.addEventListener("click", () => {
-    let computerBoard = new GameBoard();
-    playerBoard.receiveAttack([3, 6]); // test attack (working), delete this later
+    if (playerBoard.ships.length < 5) {
+      alert("Please place all ships.");
+      return;
+    }
+
+    playGame();
   });
 
   domElements.backToMenu.addEventListener("click", () => {
