@@ -1,40 +1,79 @@
-.cell {
-  width: 25px; /* Width of each cell */
-  height: 25px; /* Height of each cell */
-  border: 1px solid #000; /* Border to distinguish cells */
-  float: left; /* Align cells next to each other */
-  margin: 1px; /* Optional: Adds a little space between cells */
+:root {
+  --cell-size: 25px;
 }
 
-.grid-container::after {
-  content: "";
-  display: table;
-  clear: both;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.cell {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #000;
+}
+
+.cpuCell {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #000;
+  float: left;
 }
 
 .grid-container {
   margin: 0 auto;
-  width: 500px;
   display: flex;
-  gap: 300px;
+  width: 250px;
+  gap: 100px;
 }
 
 .player-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  gap: 5px;
   width: 100%;
-  max-width: 240px;
-  aspect-ratio: 1;
+  grid-gap: 1px;
 }
 
 .computer-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  gap: 5px;
   width: 100%;
-  max-width: 240px;
-  aspect-ratio: 1;
+  grid-gap: 1px;
+}
+
+.ships {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ship {
+  height: 25px;
+  background-color: #000;
+  cursor: grab;
+}
+
+.ship[data-length="2"] {
+  width: 50px; /* Adjusted from 53px */
+}
+
+.ship[data-length="3"] {
+  width: 75px; /* Adjusted from 78px */
+}
+
+.ship[data-length="4"] {
+  width: 100px; /* Adjusted from 106px */
+}
+
+.ship[data-length="5"] {
+  width: 125px; /* Adjusted from 131px */
+}
+
+.occupied {
+  background-color: #000;
 }

@@ -1,6 +1,6 @@
 // battleship game board class
 
-class GameBoard {
+export class GameBoard {
   constructor() {
     this.board = Array.from({ length: 10 }, () => Array(10).fill(null)); // create a 10x10 2D array
     this.ships = [];
@@ -60,6 +60,11 @@ class GameBoard {
 
   allSunk() {
     return this.ships.every((shipInfo) => shipInfo.ship.isSunk());
+  }
+
+  resetBoard() {
+    this.board = Array.from({ length: 10 }, () => Array(10).fill(null));
+    this.ships = [];
   }
 }
 
