@@ -1,6 +1,4 @@
 import { Cpu } from "./cpu";
-import Ship from "./ship";
-import GameBoard from "./gameBoard";
 
 export function playGame() {
   let cpu = new Cpu();
@@ -10,9 +8,10 @@ export function playGame() {
   cpuCells.forEach((cell) => {
     cell.addEventListener("click", (e) => {
       let index = parseInt(e.target.getAttribute("data-index"));
-      let row = Math.floor(index / 9);
-      let col = index % 9;
+      let row = Math.floor(index / 10);
+      let col = index % 10;
       let result = cpu.board.receiveAttack([row, col]);
+      console.log("cpu:", cpu.board.board);
       if (result) {
         e.target.style.backgroundColor = "red";
       } else {

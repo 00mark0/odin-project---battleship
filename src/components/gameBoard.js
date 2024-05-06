@@ -41,20 +41,12 @@ export class GameBoard {
     if (target === null) {
       this.board[attackRow][attackCol] = "miss";
       return false;
-    } else if (target === "miss" || target === "hit") {
-      return false;
-    } else {
-      // correctly calculate the hit position based on ship's orientation and starting position
-      const shipInfo = this.ships.find((shipInfo) => shipInfo.ship === target);
-      const [startRow, startCol] = shipInfo.startPosition;
-      const hitPosition =
-        shipInfo.direction === "horizontal"
-          ? attackCol - startCol
-          : attackRow - startRow;
-
-      target.hit(hitPosition);
+    } else if (target && target.type === "ship") {
+      target.hit();
       this.board[attackRow][attackCol] = "hit";
       return true;
+    } else {
+      return false;
     }
   }
 

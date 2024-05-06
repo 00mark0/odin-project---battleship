@@ -29,7 +29,7 @@ export function handleDrop(e) {
       // check bounds for horizontal placement
       const ship = new Ship(shipLength);
       playerBoard.placeShip(ship, [row, col], "horizontal");
-      console.log(playerBoard.board);
+      console.log("player:", playerBoard.board);
       shipElement.style.display = "none"; // hide ship after placement
       // mark cells as occupied (example logic)
       for (let i = 0; i < shipLength; i++) {
@@ -46,7 +46,7 @@ export function handleDrop(e) {
     if (row + shipLength <= gridWidth) {
       const ship = new Ship(shipLength);
       playerBoard.placeShip(ship, [row, col], "vertical");
-      console.log(playerBoard.board);
+      console.log("player:", playerBoard.board);
       shipElement.style.display = "none"; // hide ship after placement
       // mark cells as occupied (example logic)
       for (let i = 0; i < shipLength; i++) {
