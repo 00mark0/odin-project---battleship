@@ -4,11 +4,13 @@ import { playerBoard } from "./dragDrop";
 export function playGame(difficulty) {
   let cpu = new Cpu();
   let cpuCells = document.querySelectorAll(".cpu-cell");
+  let gameOngoing = true;
 
   console.log("cpu:", cpu.board.board);
   cpu.placeShips();
   cpuCells.forEach((cell) => {
     cell.addEventListener("click", function cellClick(e) {
+      if (!gameOngoing) return;
       console.clear();
       console.log("player:", playerBoard.board);
       console.log("cpu:", cpu.board.board);
@@ -46,10 +48,20 @@ export function playGame(difficulty) {
 
       if (cpu.board.allSunk()) {
         alert("You win!");
+        gameOngoing = false;
+        cpuCells.forEach((cell) => {
+          cell.removeEventListener("click", cellClick);
+        });
+        return;
       }
 
       if (playerBoard.allSunk()) {
         alert("You lose!");
+        gameOngoing = false;
+        cpuCells.forEach((cell) => {
+          cell.removeEventListener("click", cellClick);
+        });
+        return;
       }
 
       // e.target.removeEventListener("click", cellClick); // if you want to disable player clicking on the same cell, uncomment this line
