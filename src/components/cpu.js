@@ -19,7 +19,7 @@ export class Cpu {
       let row, col, direction;
 
       while (true) {
-        // Generate a random start position and direction
+        // generate a random start position and direction
         direction = Math.random() < 0.5 ? "horizontal" : "vertical";
 
         if (direction === "horizontal") {
@@ -34,7 +34,7 @@ export class Cpu {
           col = Math.floor(Math.random() * 10);
         }
 
-        // Check if the chosen position is empty
+        // check if the chosen position is empty
         let isPositionEmpty = true;
         for (let j = 0; j < this.board.ships[i].ship.length; j++) {
           if (direction === "horizontal") {
@@ -50,7 +50,7 @@ export class Cpu {
           }
         }
 
-        // If the position is empty, place the ship
+        // if the position is empty, place the ship
         if (isPositionEmpty) {
           // update the startPosition and direction of the ship
           this.board.ships[i].startPosition = [row, col];
@@ -59,7 +59,7 @@ export class Cpu {
         }
       }
 
-      // Place the ship
+      // place the ship
       for (let j = 0; j < this.board.ships[i].ship.length; j++) {
         if (direction === "horizontal") {
           this.board.board[row][col + j] = this.board.ships[i].ship;
@@ -94,7 +94,7 @@ export class Cpu {
     let attackResult;
     let lastHit = Array.from(this.attackedCells).pop();
     if (lastHit && this.attackedCells.size % 2 === 0) {
-      // Try an adjacent cell
+      // try an adjacent cell
       let [lastRow, lastCol] = lastHit.split(",").map(Number);
       let adjacentCells = [
         [lastRow - 1, lastCol],
@@ -102,7 +102,7 @@ export class Cpu {
         [lastRow, lastCol - 1],
         [lastRow, lastCol + 1],
       ];
-      // Filter out cells that are out of bounds or have already been attacked
+      // filter out cells that are out of bounds or have already been attacked
       adjacentCells = adjacentCells.filter(([row, col]) => {
         return (
           row >= 0 &&
@@ -117,14 +117,14 @@ export class Cpu {
         [row, col] =
           adjacentCells[Math.floor(Math.random() * adjacentCells.length)];
       } else {
-        // No valid adjacent cells, go back to random attacks
+        // no valid adjacent cells, go back to random attacks
         do {
           row = Math.floor(Math.random() * 10);
           col = Math.floor(Math.random() * 10);
         } while (this.attackedCells.has(`${row},${col}`));
       }
     } else {
-      // Random attack
+      // random attack
       do {
         row = Math.floor(Math.random() * 10);
         col = Math.floor(Math.random() * 10);
@@ -139,7 +139,7 @@ export class Cpu {
     let row, col;
     let lastHit = Array.from(this.attackedCells).pop();
     if (lastHit) {
-      // Target mode
+      // target mode
       let [lastRow, lastCol] = lastHit.split(",").map(Number);
       let adjacentCells = [
         [lastRow - 1, lastCol],
@@ -147,7 +147,7 @@ export class Cpu {
         [lastRow, lastCol - 1],
         [lastRow, lastCol + 1],
       ];
-      // Filter out cells that are out of bounds or have already been attacked
+      // filter out cells that are out of bounds or have already been attacked
       adjacentCells = adjacentCells.filter(([row, col]) => {
         return (
           row >= 0 &&
@@ -158,18 +158,18 @@ export class Cpu {
         );
       });
       if (adjacentCells.length > 0) {
-        // Choose a random adjacent cell
+        // choose a random adjacent cell
         [row, col] =
           adjacentCells[Math.floor(Math.random() * adjacentCells.length)];
       } else {
-        // No valid adjacent cells, go back to hunt mode
+        // no valid adjacent cells, go back to hunt mode
         do {
           row = Math.floor(Math.random() * 10);
           col = Math.floor(Math.random() * 10);
         } while (this.attackedCells.has(`${row},${col}`));
       }
     } else {
-      // Hunt mode
+      // hunt mode
       do {
         row = Math.floor(Math.random() * 10);
         col = Math.floor(Math.random() * 10);

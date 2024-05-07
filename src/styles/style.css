@@ -59,23 +59,23 @@
 }
 
 .ship[data-length="2"] {
-  width: 50px; /* Adjusted from 53px */
-  border-top: 7px solid green;
+  width: 50px;
+  border-left: 7px solid green;
 }
 
 .ship[data-length="3"] {
-  width: 75px; /* Adjusted from 78px */
-  border-top: 7px solid green;
+  width: 75px;
+  border-left: 7px solid green;
 }
 
 .ship[data-length="4"] {
-  width: 100px; /* Adjusted from 106px */
-  border-top: 7px solid green;
+  width: 100px;
+  border-left: 7px solid green;
 }
 
 .ship[data-length="5"] {
-  width: 125px; /* Adjusted from 131px */
-  border-top: 7px solid green;
+  width: 125px;
+  border-left: 7px solid green;
 }
 
 .cell.occupied {
