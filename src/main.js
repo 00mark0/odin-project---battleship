@@ -18,9 +18,7 @@ function menuPage() {
   app.innerHTML = gameMenuHTML;
   let domElements = initDomElements();
 
-  domElements.startGame.addEventListener("click", () => {
-    setupPage();
-  });
+  domElements.startGame.addEventListener("click", setupPage);
 }
 
 function setupPage() {
@@ -57,6 +55,13 @@ function setupPage() {
     }
 
     playGame();
+  });
+
+  domElements.restart.addEventListener("click", () => {
+    playerBoard.resetBoard();
+    domElements.playerGrid.innerHTML = "";
+    domElements.computerGrid.innerHTML = "";
+    initBoard(domElements);
   });
 
   domElements.backToMenu.addEventListener("click", () => {

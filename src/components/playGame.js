@@ -1,10 +1,11 @@
 import { Cpu } from "./cpu";
 import { playerBoard } from "./dragDrop";
+import initDomElements from "./domElements";
 
 export function playGame() {
   let cpu = new Cpu();
   let cpuCells = document.querySelectorAll(".cpu-cell");
-  let cells = document.querySelectorAll(".cell");
+
   console.log("cpu:", cpu.board.board);
   cpu.placeShips();
   cpuCells.forEach((cell) => {
@@ -27,6 +28,7 @@ export function playGame() {
       if (attackResult) {
         targetCell.classList.remove("occupied");
         targetCell.classList.add("hit");
+        return;
       } else {
         targetCell.classList.add("miss");
       }

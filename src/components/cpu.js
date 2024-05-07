@@ -89,4 +89,16 @@ export class Cpu {
     }
     return [row, col, attackResult];
   }
+
+  resetBoard() {
+    this.board = new GameBoard();
+    this.board.ships = [
+      { ship: new Ship(5), startPosition: [0, 0], direction: "horizontal" },
+      { ship: new Ship(4), startPosition: [0, 1], direction: "horizontal" },
+      { ship: new Ship(3), startPosition: [0, 2], direction: "horizontal" },
+      { ship: new Ship(3), startPosition: [0, 3], direction: "horizontal" },
+      { ship: new Ship(2), startPosition: [0, 4], direction: "horizontal" },
+    ];
+    this.attackedCells = new Set();
+  }
 }
