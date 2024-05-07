@@ -38,7 +38,9 @@ export class GameBoard {
     let [attackRow, attackCol] = position;
     let target = this.board[attackRow][attackCol];
 
-    if (target === null) {
+    if (target === "hit" || target === "miss") {
+      return undefined;
+    } else if (target === null) {
       this.board[attackRow][attackCol] = "miss";
       return false;
     } else if (target && target.type === "ship") {
@@ -66,6 +68,7 @@ export class GameBoard {
       return false;
     }
   }
+
   allSunk() {
     return this.ships.every((shipInfo) => shipInfo.ship.isSunk());
   }

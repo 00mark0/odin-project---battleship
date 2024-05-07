@@ -20,21 +20,16 @@ export function playGame() {
       }
 
       let [attackRow, attackCol, attackResult] = cpu.randomAttack(playerBoard);
-      console.log(
-        `CPU attack: row ${attackRow}, col ${attackCol}, result ${attackResult}`
-      ); // Add this line
       let attackIndex = attackRow * 10 + attackCol;
       let targetCell = document.querySelector(
         `.cell[data-index="${attackIndex}"]`
       );
-      console.log(`Target cell classes before attack: ${targetCell.classList}`); // Add this line
       if (attackResult) {
         targetCell.classList.remove("occupied");
         targetCell.classList.add("hit");
       } else {
         targetCell.classList.add("miss");
       }
-      console.log(`Target cell classes after attack: ${targetCell.classList}`); // Add this line
 
       if (cpu.board.allSunk()) {
         alert("You win!");

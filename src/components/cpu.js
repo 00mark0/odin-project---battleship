@@ -12,6 +12,7 @@ export class Cpu {
       { ship: new Ship(3), startPosition: [0, 3], direction: "horizontal" },
       { ship: new Ship(2), startPosition: [0, 4], direction: "horizontal" },
     ];
+    this.attackedCells = new Set();
   }
 
   placeShips() {
@@ -76,6 +77,11 @@ export class Cpu {
     while (true) {
       row = Math.floor(Math.random() * 10);
       col = Math.floor(Math.random() * 10);
+      let cellKey = `${row},${col}`;
+      if (this.attackedCells.has(cellKey)) {
+        continue;
+      }
+      this.attackedCells.add(cellKey);
       attackResult = playerBoard.receiveAttack([row, col]);
       if (attackResult !== undefined) {
         break;
