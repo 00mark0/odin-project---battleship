@@ -62,6 +62,9 @@ function setupPage() {
     domElements.playerGrid.innerHTML = "";
     domElements.computerGrid.innerHTML = "";
     initBoard(domElements);
+    domElements.ship.forEach((ship) => {
+      ship.style.display = "block";
+    });
   });
 
   domElements.backToMenu.addEventListener("click", () => {
