@@ -54,17 +54,45 @@ function setupPage() {
       return;
     }
 
+    domElements.addName.style.display = "none";
+    domElements.menuItem.style.display = "none";
+    domElements.rotate.style.display = "none";
+    domElements.start.style.display = "none";
+    domElements.backToMenu.style.display = "none";
+
     playGame();
   });
 
   domElements.restart.addEventListener("click", () => {
     playerBoard.resetBoard();
+
     domElements.playerGrid.innerHTML = "";
     domElements.computerGrid.innerHTML = "";
+
     initBoard(domElements);
+
+    domElements.addName.style.display = "block";
+    domElements.menuItem.style.display = "block";
+    domElements.rotate.style.display = "block";
+    domElements.start.style.display = "block";
+    domElements.backToMenu.style.display = "block";
+
     domElements.ship.forEach((ship) => {
       ship.style.display = "block";
     });
+
+    domElements.ship.forEach((ship) => {
+      ship.addEventListener("dragstart", handleDragStart);
+    });
+
+    let cellsAfterReset = document.querySelectorAll(".cell");
+
+    cellsAfterReset.forEach((cell) => {
+      cell.addEventListener("dragover", handleDragOver);
+      cell.addEventListener("drop", handleDrop);
+    });
+
+    console.clear();
   });
 
   domElements.backToMenu.addEventListener("click", () => {
