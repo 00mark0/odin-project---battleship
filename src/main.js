@@ -29,6 +29,12 @@ function setupPage() {
     domElements.playerName.textContent = domElements.nameInput.value;
   });
 
+  domElements.nameInput.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      domElements.playerName.textContent = domElements.nameInput.value;
+    }
+  });
+
   initBoard(domElements);
 
   let cells = document.querySelectorAll(".cell");
@@ -54,13 +60,16 @@ function setupPage() {
       return;
     }
 
+    let difficulty = domElements.difficulty.value;
+    console.log(difficulty);
+
     domElements.addName.style.display = "none";
     domElements.menuItem.style.display = "none";
     domElements.rotate.style.display = "none";
     domElements.start.style.display = "none";
     domElements.backToMenu.style.display = "none";
 
-    playGame();
+    playGame(difficulty);
   });
 
   domElements.restart.addEventListener("click", () => {
