@@ -12,8 +12,6 @@ export class Cpu {
       { ship: new Ship(2), startPosition: [0, 4], direction: "horizontal" },
     ];
     this.attackedCells = new Set();
-    this.cellsToAttack = [];
-    this.hitsStack = [];
   }
 
   placeShips() {
@@ -139,48 +137,49 @@ export class Cpu {
 
   hardAttack(playerBoard) {
     let row, col;
-    let attackResult;
-
-    if (this.hitsStack.length > 0) {
-      let lastHit = this.hitsStack[0];
-      if (lastHit.adjacentCells.length > 0) {
-        [row, col] = lastHit.adjacentCells.pop();
+    let lastHit = Array.from(this.attackedCells).pop();
+    if (lastHit) {
+      // Target mode
+      let [lastRow, lastCol] = lastHit.split(",").map(Number);
+      let adjacentCells = [
+        [lastRow - 1, lastCol],
+        [lastRow + 1, lastCol],
+        [lastRow, lastCol - 1],
+        [lastRow, lastCol + 1],
+      ];
+      // Filter out cells that are out of bounds or have already been attacked
+      adjacentCells = adjacentCells.filter(([row, col]) => {
+        return (
+          row >= 0 &&
+          row < 10 &&
+          col >= 0 &&
+          col < 10 &&
+          !this.attackedCells.has(`${row},${col}`)
+        );
+      });
+      if (adjacentCells.length > 0) {
+        // Choose a random adjacent cell
+        [row, col] =
+          adjacentCells[Math.floor(Math.random() * adjacentCells.length)];
       } else {
-        this.hitsStack.shift();
-        return this.hardAttack(playerBoard);
+        // No valid adjacent cells, go back to hunt mode
+        do {
+          row = Math.floor(Math.random() * 10);
+          col = Math.floor(Math.random() * 10);
+        } while (this.attackedCells.has(`${row},${col}`));
       }
     } else {
+      // Hunt mode
       do {
         row = Math.floor(Math.random() * 10);
         col = Math.floor(Math.random() * 10);
       } while (this.attackedCells.has(`${row},${col}`));
     }
-
     this.attackedCells.add(`${row},${col}`);
-    attackResult = playerBoard.receiveAttack([row, col]);
-
+    let attackResult = playerBoard.receiveAttack([row, col]);
     if (attackResult === "hit") {
-      this.hitsStack = []; // Clear the stack
-      let adjacentCells = [
-        [row - 1, col],
-        [row + 1, col],
-        [row, col - 1],
-        [row, col + 1],
-      ];
-
-      adjacentCells = adjacentCells.filter(([adjRow, adjCol]) => {
-        return (
-          adjRow >= 0 &&
-          adjRow < 10 &&
-          adjCol >= 0 &&
-          adjCol < 10 &&
-          !this.attackedCells.has(`${adjRow},${adjCol}`)
-        );
-      });
-
-      this.hitsStack.push({ hit: [row, col], adjacentCells });
+      this.lastHit = `${row},${col}`;
     }
-
     return [row, col, attackResult];
   }
 }
