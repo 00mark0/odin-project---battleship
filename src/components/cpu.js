@@ -1,5 +1,6 @@
 import GameBoard from "./gameBoard";
 import Ship from "./ship";
+import initDomElements from "./domElements";
 
 export class Cpu {
   constructor() {
@@ -73,6 +74,8 @@ export class Cpu {
   easyAttack(playerBoard) {
     let row, col;
     let attackResult;
+    let domElements = initDomElements();
+
     while (true) {
       row = Math.floor(Math.random() * 10);
       col = Math.floor(Math.random() * 10);
@@ -82,8 +85,19 @@ export class Cpu {
       }
       this.attackedCells.add(cellKey);
       attackResult = playerBoard.receiveAttack([row, col]);
+
       if (attackResult !== undefined) {
         break;
+      }
+
+      if (attackResult === "sunk") {
+        domElements.cpuInfo.textContent = "CPU sunk a ship!";
+        domElements.cpuInfo.style.display = "block";
+
+        setTimeout(function () {
+          domElements.cpuInfo.textContent = "";
+          domElements.cpuInfo.style.display = "none";
+        }, 5000);
       }
     }
     return [row, col, attackResult];
@@ -132,6 +146,16 @@ export class Cpu {
     }
     this.attackedCells.add(`${row},${col}`);
     attackResult = playerBoard.receiveAttack([row, col]);
+    if (attackResult === "sunk") {
+      let domElements = initDomElements();
+      domElements.cpuInfo.textContent = "CPU sunk a ship!";
+      domElements.cpuInfo.style.display = "block";
+
+      setTimeout(function () {
+        domElements.cpuInfo.textContent = "";
+        domElements.cpuInfo.style.display = "none";
+      }, 5000);
+    }
     return [row, col, attackResult];
   }
 
@@ -177,9 +201,22 @@ export class Cpu {
     }
     this.attackedCells.add(`${row},${col}`);
     let attackResult = playerBoard.receiveAttack([row, col]);
+
     if (attackResult === "hit") {
       this.lastHit = `${row},${col}`;
     }
+
+    if (attackResult === "sunk") {
+      let domElements = initDomElements();
+      domElements.cpuInfo.textContent = "CPU sunk a ship!";
+      domElements.cpuInfo.style.display = "block";
+
+      setTimeout(function () {
+        domElements.cpuInfo.textContent = "";
+        domElements.cpuInfo.style.display = "none";
+      }, 5000);
+    }
+
     return [row, col, attackResult];
   }
 }

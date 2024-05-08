@@ -78,14 +78,14 @@
   border-left: 7px solid green;
 }
 
-.cell.occupied {
+.occupied {
   background-color: #000;
 }
 
-.cell.hit {
+.hit {
   background-color: red !important;
 }
 
-.cell.miss {
+.miss {
   background-color: blue !important;
 }

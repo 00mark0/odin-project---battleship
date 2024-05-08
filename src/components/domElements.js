@@ -7,6 +7,8 @@ const initDomElements = () => ({
   gridContainer: document.querySelector(".grid-container"),
   playerGrid: document.querySelector(".player-grid"),
   playerName: document.querySelector("#player-name"),
+  playerInfo: document.querySelector("#player-info"),
+  cpuInfo: document.querySelector("#cpu-info"),
   computerGrid: document.querySelector(".computer-grid"),
   ships: document.querySelector(".ships"),
   ship: document.querySelectorAll(".ship"),

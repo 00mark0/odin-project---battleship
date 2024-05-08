@@ -1,7 +1,9 @@
 import { Cpu } from "./cpu";
 import { playerBoard } from "./dragDrop";
+import initDomElements from "./domElements";
 
 export function playGame(difficulty) {
+  let domElements = initDomElements();
   let cpu = new Cpu();
   let cpuCells = document.querySelectorAll(".cpu-cell");
   let gameOngoing = true;
@@ -19,9 +21,19 @@ export function playGame(difficulty) {
       let col = index % 10;
       let result = cpu.board.receiveAttack([row, col]);
       if (result) {
-        e.target.style.backgroundColor = "red";
+        e.target.classList.add("hit");
       } else {
-        e.target.style.backgroundColor = "blue";
+        e.target.classList.add("miss");
+      }
+
+      if (result === "sunk") {
+        domElements.playerInfo.textContent = "You sunk a ship!";
+        domElements.playerInfo.style.display = "block";
+
+        setTimeout(function () {
+          domElements.playerInfo.textContent = "";
+          domElements.playerInfo.style.display = "none";
+        }, 5000);
       }
 
       let attackRow, attackCol, attackResult;

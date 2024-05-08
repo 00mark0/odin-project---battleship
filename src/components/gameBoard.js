@@ -60,7 +60,7 @@ export class GameBoard {
 
       // Check if the ship is sunk
       if (target.isSunk()) {
-        console.log("You sunk my battleship!");
+        return "sunk";
       }
 
       return true;

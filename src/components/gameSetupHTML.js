@@ -4,13 +4,13 @@ const gameSetupHTML = `
 <div class="game-setup">
     <div class="grid-container">
      <div>
-        <p id="player-name">Player</p>
+        <span id="player-name">Player</span><span id="player-info"></span>
         <div class="player-grid">
             
         </div>
      </div>
      <div>
-     <p>CPU</p>
+     <span>CPU</span><span id="cpu-info"></span>
         <div class="computer-grid">
             
         </div> 
