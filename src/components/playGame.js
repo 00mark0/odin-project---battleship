@@ -33,7 +33,7 @@ export function playGame(difficulty) {
         setTimeout(function () {
           domElements.playerInfo.textContent = "";
           domElements.playerInfo.style.display = "none";
-        }, 5000);
+        }, 3000);
       }
 
       let attackRow, attackCol, attackResult;

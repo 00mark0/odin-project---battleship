@@ -39,6 +39,7 @@ const gameSetupHTML = `
     <div class="buttons">
         <button id="rotate">Rotate</button>
         <button id="start">Start Game</button>
+        <button id="randomize">Randomize</button>
         <button id="restart">Restart</button>
         <button id="back-to-menu">Back</div> 
     </div>

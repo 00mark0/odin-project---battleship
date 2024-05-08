@@ -10,6 +10,7 @@ import {
 import { rotateShip } from "./components/rotateShip";
 import { playerBoard } from "./components/dragDrop";
 import { playGame } from "./components/playGame";
+import { randomizePlayerPlacement } from "./components/randomize";
 import "./styles/style.css";
 
 const app = document.getElementById("app");
@@ -67,10 +68,13 @@ function setupPage() {
     domElements.menuItem.style.display = "none";
     domElements.rotate.style.display = "none";
     domElements.start.style.display = "none";
+    domElements.randomize.style.display = "none";
     domElements.backToMenu.style.display = "none";
 
     playGame(difficulty);
   });
+
+  domElements.randomize.addEventListener("click", randomizePlayerPlacement);
 
   domElements.restart.addEventListener("click", () => {
     playerBoard.resetBoard();
@@ -84,6 +88,7 @@ function setupPage() {
     domElements.menuItem.style.display = "block";
     domElements.rotate.style.display = "block";
     domElements.start.style.display = "block";
+    domElements.randomize.style.display = "block";
     domElements.backToMenu.style.display = "block";
 
     domElements.ship.forEach((ship) => {

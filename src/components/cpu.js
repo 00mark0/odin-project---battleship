@@ -97,7 +97,7 @@ export class Cpu {
         setTimeout(function () {
           domElements.cpuInfo.textContent = "";
           domElements.cpuInfo.style.display = "none";
-        }, 5000);
+        }, 3000);
       }
     }
     return [row, col, attackResult];
@@ -154,7 +154,7 @@ export class Cpu {
       setTimeout(function () {
         domElements.cpuInfo.textContent = "";
         domElements.cpuInfo.style.display = "none";
-      }, 5000);
+      }, 3000);
     }
     return [row, col, attackResult];
   }
@@ -214,7 +214,7 @@ export class Cpu {
       setTimeout(function () {
         domElements.cpuInfo.textContent = "";
         domElements.cpuInfo.style.display = "none";
-      }, 5000);
+      }, 3000);
     }
 
     return [row, col, attackResult];

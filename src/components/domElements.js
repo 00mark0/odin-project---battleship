@@ -18,6 +18,7 @@ const initDomElements = () => ({
   addNameButton: document.querySelector("#add-name"),
   rotate: document.querySelector("#rotate"),
   start: document.querySelector("#start"),
+  randomize: document.querySelector("#randomize"),
   restart: document.querySelector("#restart"),
   backToMenu: document.querySelector("#back-to-menu"),
 });
