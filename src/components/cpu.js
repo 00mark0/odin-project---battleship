@@ -106,10 +106,10 @@ export class Cpu {
   mediumAttack(playerBoard) {
     let row, col;
     let attackResult;
-    let lastHit = Array.from(this.attackedCells).pop();
-    if (lastHit && this.attackedCells.size % 2 === 0) {
-      // try an adjacent cell
-      let [lastRow, lastCol] = lastHit.split(",").map(Number);
+
+    if (this.lastHit) {
+      // target mode
+      let [lastRow, lastCol] = this.lastHit;
       let adjacentCells = [
         [lastRow - 1, lastCol],
         [lastRow + 1, lastCol],
@@ -127,25 +127,32 @@ export class Cpu {
         );
       });
       if (adjacentCells.length > 0) {
-        // Choose a random adjacent cell
-        [row, col] =
-          adjacentCells[Math.floor(Math.random() * adjacentCells.length)];
+        // choose a random cell from the valid adjacent cells
+        let randomIndex = Math.floor(Math.random() * adjacentCells.length);
+        [row, col] = adjacentCells[randomIndex];
       } else {
-        // no valid adjacent cells, go back to random attacks
+        // no valid adjacent cells, go back to hunt mode
+        this.lastHit = null;
         do {
           row = Math.floor(Math.random() * 10);
           col = Math.floor(Math.random() * 10);
         } while (this.attackedCells.has(`${row},${col}`));
       }
     } else {
-      // random attack
+      // hunt mode
       do {
         row = Math.floor(Math.random() * 10);
         col = Math.floor(Math.random() * 10);
       } while (this.attackedCells.has(`${row},${col}`));
     }
+
     this.attackedCells.add(`${row},${col}`);
     attackResult = playerBoard.receiveAttack([row, col]);
+
+    if (attackResult === "hit") {
+      this.lastHit = [row, col];
+    }
+
     if (attackResult === "sunk") {
       let domElements = initDomElements();
       domElements.cpuInfo.textContent = "CPU sank a ship!";
@@ -155,7 +162,9 @@ export class Cpu {
         domElements.cpuInfo.textContent = "";
         domElements.cpuInfo.style.display = "none";
       }, 3000);
+      this.lastHit = null;
     }
+
     return [row, col, attackResult];
   }
 
