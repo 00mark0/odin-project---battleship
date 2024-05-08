@@ -91,7 +91,7 @@ export class Cpu {
       }
 
       if (attackResult === "sunk") {
-        domElements.cpuInfo.textContent = "CPU sunk a ship!";
+        domElements.cpuInfo.textContent = "CPU sank a ship!";
         domElements.cpuInfo.style.display = "block";
 
         setTimeout(function () {
@@ -148,7 +148,7 @@ export class Cpu {
     attackResult = playerBoard.receiveAttack([row, col]);
     if (attackResult === "sunk") {
       let domElements = initDomElements();
-      domElements.cpuInfo.textContent = "CPU sunk a ship!";
+      domElements.cpuInfo.textContent = "CPU sank a ship!";
       domElements.cpuInfo.style.display = "block";
 
       setTimeout(function () {
@@ -182,15 +182,28 @@ export class Cpu {
         );
       });
       if (adjacentCells.length > 0) {
-        // choose a random adjacent cell
-        [row, col] =
-          adjacentCells[Math.floor(Math.random() * adjacentCells.length)];
+        // prioritize cells that are in the same direction as the last hit
+        let direction = this.lastDirection || [0, 1]; // default to horizontal direction
+        adjacentCells.sort(([row1, col1], [row2, col2]) => {
+          let direction1 = [row1 - lastRow, col1 - lastCol];
+          let direction2 = [row2 - lastRow, col2 - lastCol];
+          return (
+            Math.abs(direction1[0] - direction[0]) +
+            Math.abs(direction1[1] - direction[1]) -
+            (Math.abs(direction2[0] - direction[0]) +
+              Math.abs(direction2[1] - direction[1]))
+          );
+        });
+        // choose the first cell, which is the most prioritized
+        [row, col] = adjacentCells[0];
+        this.lastDirection = [row - lastRow, col - lastCol];
       } else {
         // no valid adjacent cells, go back to hunt mode
         do {
           row = Math.floor(Math.random() * 10);
           col = Math.floor(Math.random() * 10);
         } while (this.attackedCells.has(`${row},${col}`));
+        this.lastDirection = null;
       }
     } else {
       // hunt mode
@@ -198,6 +211,7 @@ export class Cpu {
         row = Math.floor(Math.random() * 10);
         col = Math.floor(Math.random() * 10);
       } while (this.attackedCells.has(`${row},${col}`));
+      this.lastDirection = null;
     }
     this.attackedCells.add(`${row},${col}`);
     let attackResult = playerBoard.receiveAttack([row, col]);
@@ -208,13 +222,14 @@ export class Cpu {
 
     if (attackResult === "sunk") {
       let domElements = initDomElements();
-      domElements.cpuInfo.textContent = "CPU sunk a ship!";
+      domElements.cpuInfo.textContent = "CPU sank a ship!";
       domElements.cpuInfo.style.display = "block";
 
       setTimeout(function () {
         domElements.cpuInfo.textContent = "";
         domElements.cpuInfo.style.display = "none";
       }, 3000);
+      this.lastDirection = null;
     }
 
     return [row, col, attackResult];

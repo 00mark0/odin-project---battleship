@@ -57,9 +57,11 @@ function setupPage() {
 
   domElements.start.addEventListener("click", () => {
     if (playerBoard.ships.length < 5) {
-      alert("Please place all ships.");
+      domElements.gameInfo.textContent = "Please place all ships.";
       return;
     }
+
+    domElements.gameInfo.textContent = "";
 
     let difficulty = domElements.difficulty.value;
     console.log(difficulty);
@@ -90,6 +92,7 @@ function setupPage() {
     domElements.start.style.display = "block";
     domElements.randomize.style.display = "block";
     domElements.backToMenu.style.display = "block";
+    domElements.gameInfo.textContent = "";
 
     domElements.ship.forEach((ship) => {
       ship.style.display = "block";

@@ -5,6 +5,8 @@ const initDomElements = () => ({
   startGame: document.querySelector("#start-game"),
   gameSetup: document.querySelector(".game-setup"),
   gridContainer: document.querySelector(".grid-container"),
+  gameInfoContainer: document.querySelector(".game-info-container"),
+  gameInfo: document.querySelector("#game-info"),
   playerGrid: document.querySelector(".player-grid"),
   playerName: document.querySelector("#player-name"),
   playerInfo: document.querySelector("#player-info"),

@@ -1,5 +1,6 @@
 import { GameBoard } from "./gameBoard";
 import { Ship } from "./ship";
+import initDomElements from "./domElements";
 
 export function handleDragStart(e) {
   e.dataTransfer.setData("text/plain", e.target.id);
@@ -13,6 +14,7 @@ export const playerBoard = new GameBoard();
 
 export function handleDrop(e) {
   e.preventDefault();
+  let domElements = initDomElements();
   const shipId = e.dataTransfer.getData("text/plain");
   const shipElement = document.getElementById(shipId);
   const shipLength = parseInt(shipElement.getAttribute("data-length"), 10);
@@ -39,7 +41,13 @@ export function handleDrop(e) {
         targetCell.classList.add("occupied");
       }
     } else {
-      console.error("Ship placement out of bounds.");
+      domElements.gameInfo.textContent = "Ship placement out of bounds.";
+      domElements.gameInfo.style.display = "block";
+
+      setTimeout(function () {
+        domElements.gameInfo.textContent = "";
+        domElements.gameInfo.style.display = "none";
+      }, 3000);
     }
   } else {
     // additional logic for vertical placement (needs similar correction)
@@ -56,7 +64,13 @@ export function handleDrop(e) {
         targetCell.classList.add("occupied");
       }
     } else {
-      console.error("Ship placement out of bounds.");
+      domElements.gameInfo.textContent = "Ship placement out of bounds.";
+      domElements.gameInfo.style.display = "block";
+
+      setTimeout(function () {
+        domElements.gameInfo.textContent = "";
+        domElements.gameInfo.style.display = "none";
+      }, 3000);
     }
   }
 }

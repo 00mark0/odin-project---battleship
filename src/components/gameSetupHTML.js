@@ -3,6 +3,9 @@ import DOMPurify from "dompurify";
 const gameSetupHTML = `
 <div class="game-setup">
     <div class="grid-container">
+    <div class="game-info-container">
+        <p id="game-info"></p> 
+    </div>
      <div>
         <span id="player-name">Player</span><span id="player-info"></span>
         <div class="player-grid">
