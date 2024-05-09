@@ -129,6 +129,10 @@
   gap: 10px;
 }
 
+#mobile-ship-info {
+  display: none;
+}
+
 .ship {
   height: 25px;
   background-color: #7737eb;
@@ -267,6 +271,10 @@
 @media screen and (max-width: 480px) {
   .grid-container {
     flex-direction: column;
+  }
+
+  #mobile-ship-info {
+    display: block;
   }
 
   .ships {
