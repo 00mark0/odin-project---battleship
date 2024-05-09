@@ -2,9 +2,9 @@ import DOMPurify from "dompurify";
 
 const gameSetupHTML = `
 <div class="game-setup">
+    <p id="mobile-ship-info">To place ships on mobile, simply click the cell you want the ship to start at, the ships will be placed from biggest to smallest.</p>
     <div class="ships">
         <div><p>Ships:</p></div>
-        <p id="mobile-ship-info">To place ships on mobile, simply click the cell you want the ship to start at, the ships will be placed from biggest to smallest.</p>
         <div id="ship1" class="ship" data-length="5" draggable="true" title="When selecting a ship, grab it by the green border and place it on the cell you want the ship to start at."></div>
         <div id="ship2" class="ship" data-length="4" draggable="true" title="When selecting a ship, grab it by the green border and place it on the cell you want the ship to start at."></div>
         <div id="ship3" class="ship" data-length="3" draggable="true" title="When selecting a ship, grab it by the green border and place it on the cell you want the ship to start at."></div>
@@ -13,7 +13,7 @@ const gameSetupHTML = `
     </div>
     <div class="grid-container">
      <div>
-        <p>Player</p>
+        <p id="player-tag">Player</p>
         <p id="player-info"></p>
         <div class="player-grid">
             
@@ -23,7 +23,7 @@ const gameSetupHTML = `
         <p id="game-info"></p> 
     </div>
      <div>
-     <p>CPU</p>
+     <p id="cpu-tag">CPU</p>
      <p id="cpu-info"></p>
         <div class="computer-grid">
             

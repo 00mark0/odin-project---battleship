@@ -68,6 +68,7 @@
   min-height: 100vh;
   background-color: #171717;
   color: #ffffff;
+  font-family: "Orbitron", sans-serif;
 }
 
 .cell {
@@ -87,9 +88,20 @@
 
 .grid-container {
   margin-right: 600px;
+  margin-top: 20px;
   display: flex;
   width: 250px;
   gap: 100px;
+}
+
+#player-tag {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+#player-info {
+  font-size: 1em;
+  text-align: center;
 }
 
 .player-grid {
@@ -103,11 +115,30 @@
   background-size: cover;
   background-repeat: no-repeat;
   padding: 40px;
+  border-radius: 10px;
+}
+
+#player-info {
+  text-align: center;
+  font-size: 1em;
 }
 
 #game-info {
   text-align: center;
   margin-top: 150px;
+  background-color: #212121;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+#cpu-tag {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+#cpu-info {
+  text-align: center;
+  font-size: 1em;
 }
 
 .computer-grid {
@@ -121,16 +152,28 @@
   background-size: cover;
   background-repeat: no-repeat;
   padding: 40px;
+  border-radius: 10px;
 }
 
 .ships {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: #212121;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
 #mobile-ship-info {
   display: none;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.ships p {
+  font-size: 1.2em;
+  font-weight: 400;
 }
 
 .ship {
@@ -243,7 +286,7 @@
   }
 }
 
-/* For smaller displays */
+/* for smaller displays */
 @media screen and (max-width: 1024px) {
   .grid-container {
     flex-direction: column;
@@ -267,7 +310,7 @@
   }
 }
 
-/* For mobile devices */
+/* for mobile devices */
 @media screen and (max-width: 480px) {
   .grid-container {
     flex-direction: column;

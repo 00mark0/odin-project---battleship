@@ -57,7 +57,7 @@ export function playGame() {
       }
 
       if (cpu.board.allSunk()) {
-        domElements.gameInfo.textContent = "You win! 🎉🥳";
+        domElements.cpuInfo.textContent = "You win! 🎉🥳";
 
         confetti({
           particleCount: 300,
@@ -97,7 +97,7 @@ export function playGame() {
       }
 
       if (playerBoard.allSunk()) {
-        domElements.gameInfo.textContent = "You lose! 😞🙁";
+        domElements.playerInfo.textContent = "You lose! 😞🙁";
         gameOngoing = false;
         cpuCells.forEach((cell) => {
           cell.removeEventListener("click", cellClick);
