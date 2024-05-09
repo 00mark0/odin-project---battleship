@@ -6,7 +6,7 @@ export function mobileRandomize() {
   const gridWidth = 10;
   let grid = Array(gridWidth)
     .fill()
-    .map(() => Array(gridWidth).fill(false)); // Create a 2D array
+    .map(() => Array(gridWidth).fill(false)); // create 2d arr
 
   // clear the board and the grid
   document.querySelectorAll(".cell").forEach((cell) => {

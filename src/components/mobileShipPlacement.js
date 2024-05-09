@@ -7,7 +7,7 @@ export const shipIndex = { value: 0 };
 
 export function mobileShipPlacement(e) {
   let domElements = initDomElements();
-  if (shipIndex.value >= domElements.ship.length) return; // All ships have been placed
+  if (shipIndex.value >= domElements.ship.length) return; // all ships have been placed
 
   let ship = new Ship(
     parseInt(domElements.ship[shipIndex.value].getAttribute("data-length"), 10)
@@ -31,7 +31,7 @@ export function mobileShipPlacement(e) {
         );
         targetCell.classList.add("occupied");
       }
-      shipIndex.value++; // Move to the next ship
+      shipIndex.value++; // move to the next ship
     } else {
       domElements.gameInfo.textContent = "Ship placement out of bounds.";
       domElements.gameInfo.style.display = "block";
@@ -53,7 +53,7 @@ export function mobileShipPlacement(e) {
         );
         targetCell.classList.add("occupied");
       }
-      shipIndex.value++; // Move to the next ship
+      shipIndex.value++; // move to the next ship
     } else {
       domElements.gameInfo.textContent = "Ship placement out of bounds.";
       domElements.gameInfo.style.display = "block";

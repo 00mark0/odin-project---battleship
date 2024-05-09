@@ -73,7 +73,7 @@ export class GameBoard {
       this.board[attackRow][attackCol] = "miss";
       return false;
     } else if (target && target.type === "ship") {
-      // Calculate the hit position relative to the start of the ship
+      // calculate the hit position relative to the start of the ship
       let shipInfo = this.ships.find((shipInfo) => shipInfo.ship === target);
       let hitPosition;
       if (shipInfo.direction === "horizontal") {
@@ -83,11 +83,11 @@ export class GameBoard {
         hitPosition = attackRow - shipInfo.startPosition[0];
       }
 
-      // Call the hit method with the hit position
+      // call the hit method with the hit position
       target.hit(hitPosition);
       this.board[attackRow][attackCol] = "hit";
 
-      // Check if the ship is sunk
+      // check if the ship is sunk
       if (target.isSunk()) {
         return "sunk";
       }

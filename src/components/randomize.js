@@ -6,7 +6,7 @@ export function randomizePlayerPlacement() {
   const gridWidth = 10;
   let grid = Array(gridWidth)
     .fill()
-    .map(() => Array(gridWidth).fill(false)); // Create a 2D array
+    .map(() => Array(gridWidth).fill(false)); // create a 2D array
 
   // clear the board and the grid
   document.querySelectorAll(".cell").forEach((cell) => {
