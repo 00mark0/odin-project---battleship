@@ -132,7 +132,7 @@ export class Cpu {
       ([i, j]) => playerBoard.board[i][j] === null
     );
 
-    if (randomNumber < 0.2 && cellsWithShips.length > 0) {
+    if (randomNumber < 0.3 && cellsWithShips.length > 0) {
       // choose a random cell that contains a ship
       let randomIndex = Math.floor(Math.random() * cellsWithShips.length);
       [row, col] = cellsWithShips[randomIndex];
@@ -189,7 +189,7 @@ export class Cpu {
       ([i, j]) => playerBoard.board[i][j] === null
     );
 
-    if (randomNumber < 0.5 && cellsWithShips.length > 0) {
+    if (randomNumber < 0.6 && cellsWithShips.length > 0) {
       // choose a random cell that contains a ship
       let randomIndex = Math.floor(Math.random() * cellsWithShips.length);
       [row, col] = cellsWithShips[randomIndex];

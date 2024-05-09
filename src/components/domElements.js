@@ -1,6 +1,7 @@
 const initDomElements = () => ({
   gameMenu: document.querySelector(".game-menu"),
   pressKey: document.querySelector("#press-key"),
+  mobileButton: document.querySelector("#mobile-button"),
   difficulty: document.querySelector("#difficulty"),
   gameSetup: document.querySelector(".game-setup"),
   gridContainer: document.querySelector(".grid-container"),

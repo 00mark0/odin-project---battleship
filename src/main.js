@@ -19,8 +19,13 @@ const app = document.getElementById("app");
 
 export function menuPage() {
   app.innerHTML = gameMenuHTML;
+  let domElements = initDomElements();
 
   window.addEventListener("keydown", setupPage);
+
+  if (domElements.mobileButton) {
+    domElements.mobileButton.addEventListener("click", setupPage);
+  }
 }
 
 function setupPage() {

@@ -27,6 +27,19 @@
 #press-key {
   font-size: 1.5em;
   font-weight: 500;
+  animation: blink 2.5s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .game-menu footer {
@@ -43,20 +56,8 @@
   text-decoration: none;
 }
 
-#press-key {
-  animation: blink 2.5s linear infinite;
-}
-
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+#mobile-button {
+  display: none;
 }
 
 .game-setup {
@@ -270,5 +271,32 @@
 
   .ships {
     flex-direction: column;
+  }
+
+  #press-key {
+    display: none;
+  }
+
+  #mobile-button {
+    display: block;
+    font-size: 1.5em;
+    font-weight: 500;
+    border: none;
+    background: none;
+    color: #ffffff;
+    font-family: "Orbitron", sans-serif;
+    animation: blink 2.5s linear infinite;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }
