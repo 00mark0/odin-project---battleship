@@ -10,6 +10,8 @@ export function initBoard(dom) {
     let cpuCell = document.createElement("div");
     cpuCell.classList.add("cpu-cell");
     cpuCell.setAttribute("data-index", i);
+    cpuCell.title =
+      "If you get really mad at the CPU, you can cheat in the console. 😉";
     dom.computerGrid.appendChild(cpuCell);
   }
 }

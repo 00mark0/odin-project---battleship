@@ -1,13 +1,13 @@
 import { Cpu } from "./cpu";
-import { playerBoard } from "./dragDrop";
+import { mobilePlayerBoard } from "./mobileShipPlacement";
 import initDomElements from "./domElements";
 import confetti from "canvas-confetti";
 
-export function playGame() {
+export function mobilePlayGame() {
   let domElements = initDomElements();
   let difficulty = document.querySelector("#difficulty").value;
 
-  if (playerBoard.ships.length < 5) {
+  if (mobilePlayerBoard.ships.length < 5) {
     domElements.gameInfo.textContent = "Please place all ships.";
     return;
   }
@@ -34,7 +34,7 @@ export function playGame() {
     cell.addEventListener("click", function cellClick(e) {
       if (!gameOngoing) return;
       console.clear();
-      console.log("player:", playerBoard.board);
+      console.log("player:", mobilePlayerBoard.board);
       console.log("cpu:", cpu.board.board);
       let index = parseInt(e.target.getAttribute("data-index"));
       let row = Math.floor(index / 10);
@@ -77,11 +77,14 @@ export function playGame() {
       console.log(difficulty);
 
       if (difficulty === "easy") {
-        [attackRow, attackCol, attackResult] = cpu.easyAttack(playerBoard);
+        [attackRow, attackCol, attackResult] =
+          cpu.easyAttack(mobilePlayerBoard);
       } else if (difficulty === "medium") {
-        [attackRow, attackCol, attackResult] = cpu.mediumAttack(playerBoard);
+        [attackRow, attackCol, attackResult] =
+          cpu.mediumAttack(mobilePlayerBoard);
       } else if (difficulty === "hard") {
-        [attackRow, attackCol, attackResult] = cpu.hardAttack(playerBoard);
+        [attackRow, attackCol, attackResult] =
+          cpu.hardAttack(mobilePlayerBoard);
       }
 
       let attackIndex = attackRow * 10 + attackCol;
@@ -96,7 +99,7 @@ export function playGame() {
         targetCell.classList.add("miss");
       }
 
-      if (playerBoard.allSunk()) {
+      if (mobilePlayerBoard.allSunk()) {
         domElements.gameInfo.textContent = "You lose! 😞🙁";
         gameOngoing = false;
         cpuCells.forEach((cell) => {

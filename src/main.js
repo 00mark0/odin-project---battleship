@@ -13,6 +13,7 @@ import { playGame } from "./components/playGame";
 import { randomizePlayerPlacement } from "./components/randomize";
 import { restartGame } from "./components/restart";
 import { handleKeyDown } from "./components/keyboardSupport";
+import { mobileSetup } from "./components/mobileVersion";
 import "./styles/style.css";
 
 const app = document.getElementById("app");
@@ -24,7 +25,7 @@ export function menuPage() {
   window.addEventListener("keydown", setupPage);
 
   if (domElements.mobileButton) {
-    domElements.mobileButton.addEventListener("click", setupPage);
+    domElements.mobileButton.addEventListener("click", mobileSetup);
   }
 }
 
