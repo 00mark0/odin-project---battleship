@@ -1,30 +1,91 @@
-:root {
-  --cell-size: 25px;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+.game-menu {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(/space.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: "Orbitron", sans-serif;
+}
+
+.menu-title {
+  font-size: 3em;
+  margin-bottom: 20px;
+  font-weight: 900;
+}
+
+#press-key {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.game-menu footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.game-menu footer a {
+  color: white;
+  text-decoration: none;
+}
+
+#press-key {
+  animation: blink 2.5s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.game-setup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #171717;
+  color: #ffffff;
+}
+
 .cell {
   position: relative;
   width: 25px;
   height: 25px;
-  border: 1px solid #000;
+  border: 1px solid #0cb0ff;
 }
 
 .cpu-cell {
   position: relative;
   width: 25px;
   height: 25px;
-  border: 1px solid #000;
+  border: 1px solid #0cb0ff;
   float: left;
 }
 
 .grid-container {
-  margin: 0 auto;
+  margin-right: 500px;
   display: flex;
   width: 250px;
   gap: 100px;
@@ -36,6 +97,11 @@
   grid-template-rows: repeat(10, 1fr);
   width: 100%;
   grid-gap: 1px;
+  background-image: url(/space.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 40px;
 }
 
 .computer-grid {
@@ -44,6 +110,11 @@
   grid-template-rows: repeat(10, 1fr);
   width: 100%;
   grid-gap: 1px;
+  background-image: url(/space.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 40px;
 }
 
 .ships {
@@ -54,7 +125,7 @@
 
 .ship {
   height: 25px;
-  background-color: #000;
+  background-color: #7737eb;
   cursor: grab;
 }
 
@@ -65,27 +136,130 @@
 
 .ship[data-length="3"] {
   width: 75px;
-  border-left: 7px solid green;
+  border-left: 10px solid green;
 }
 
 .ship[data-length="4"] {
   width: 100px;
-  border-left: 7px solid green;
+  border-left: 10px solid green;
 }
 
 .ship[data-length="5"] {
   width: 125px;
-  border-left: 7px solid green;
+  border-left: 10px solid green;
 }
 
 .occupied {
-  background-color: #000;
+  background-color: #7737eb;
 }
 
 .hit {
-  background-color: red !important;
+  animation: hit-animation 1s forwards;
+  position: relative;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.hit::after {
+  content: "💥"; /* Explosion emoji */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5em;
+  color: red;
+  opacity: 0;
+  animation: fadeIn 1s 1s forwards;
+  transition: opacity 1s;
+}
+
+@keyframes hit-animation {
+  0% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: orange;
+  }
+  100% {
+    background-color: red;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .miss {
-  background-color: blue !important;
+  animation: miss-animation 1s forwards;
+  position: relative;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.miss::after {
+  content: "🌀"; /* Dizzy emoji */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5em;
+  color: blue;
+  opacity: 0;
+  animation: fadeIn 1s 1s forwards;
+  transition: opacity 1s;
+}
+
+@keyframes miss-animation {
+  0% {
+    background-color: white;
+  }
+  50% {
+    background-color: lightblue;
+  }
+  100% {
+    background-color: blue;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* For smaller displays */
+@media screen and (max-width: 1024px) {
+  .grid-container {
+    flex-direction: column;
+    margin-right: 100px;
+  }
+
+  .player-grid {
+    width: 350px;
+  }
+
+  .computer-grid {
+    width: 350px;
+  }
+
+  #restart {
+    margin-left: 0;
+  }
+}
+
+/* For mobile devices */
+@media screen and (max-width: 480px) {
+  .grid-container {
+    flex-direction: column;
+  }
+
+  .ships {
+    flex-direction: column;
+  }
 }

@@ -1,8 +1,7 @@
 const initDomElements = () => ({
   gameMenu: document.querySelector(".game-menu"),
-  menuItem: document.querySelector(".menu-item"),
+  pressKey: document.querySelector("#press-key"),
   difficulty: document.querySelector("#difficulty"),
-  startGame: document.querySelector("#start-game"),
   gameSetup: document.querySelector(".game-setup"),
   gridContainer: document.querySelector(".grid-container"),
   gameInfoContainer: document.querySelector(".game-info-container"),
@@ -18,6 +17,7 @@ const initDomElements = () => ({
   addName: document.querySelector(".add-name"),
   nameInput: document.querySelector("#name-input"),
   addNameButton: document.querySelector("#add-name"),
+  menuItem: document.querySelector(".menu-item"),
   rotate: document.querySelector("#rotate"),
   start: document.querySelector("#start"),
   randomize: document.querySelector("#randomize"),

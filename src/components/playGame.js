@@ -55,6 +55,8 @@ export function playGame(difficulty) {
 
       let attackRow, attackCol, attackResult;
 
+      console.log(difficulty);
+
       if (difficulty === "easy") {
         [attackRow, attackCol, attackResult] = cpu.easyAttack(playerBoard);
       } else if (difficulty === "medium") {

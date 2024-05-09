@@ -17,9 +17,8 @@ const app = document.getElementById("app");
 
 function menuPage() {
   app.innerHTML = gameMenuHTML;
-  let domElements = initDomElements();
 
-  domElements.startGame.addEventListener("click", setupPage);
+  window.addEventListener("keydown", setupPage);
 }
 
 function setupPage() {
@@ -73,6 +72,8 @@ function setupPage() {
     domElements.randomize.style.display = "none";
     domElements.backToMenu.style.display = "none";
 
+    domElements.restart.style.marginLeft = "25px";
+
     playGame(difficulty);
   });
 
@@ -115,6 +116,17 @@ function setupPage() {
   domElements.backToMenu.addEventListener("click", () => {
     menuPage();
     playerBoard.resetBoard();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      menuPage();
+      playerBoard.resetBoard();
+    }
+
+    if (e.key === "r") {
+      randomizePlayerPlacement();
+    }
   });
 }
 

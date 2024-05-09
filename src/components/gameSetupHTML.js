@@ -2,29 +2,32 @@ import DOMPurify from "dompurify";
 
 const gameSetupHTML = `
 <div class="game-setup">
-    <div class="grid-container">
     <div class="game-info-container">
         <p id="game-info"></p> 
     </div>
+    <div class="ships">
+        <div><p>Ships:</p></div>
+        <div id="ship1" class="ship" data-length="5" draggable="true" title="When selecting a ship, grab it by the green border and place it on the cell you want the ship to start at."></div>
+        <div id="ship2" class="ship" data-length="4" draggable="true" title="When selecting a ship, grab it by the green border and place it on the cell you want the ship to start at."></div>
+        <div id="ship3" class="ship" data-length="3" draggable="true" title="When selecting a ship, grab it by the green border and place it on the cell you want the ship to start at."></div>
+        <div id="ship4" class="ship" data-length="3" draggable="true" title="When selecting a ship, grab it by the green border and place it on the cell you want the ship to start at."></div>
+        <div id="ship5" class="ship" data-length="2" draggable="true" title="When selecting a ship, grab it by the green border and place it on the cell you want the ship to start at."></div> 
+    </div>
+    <div class="grid-container">
      <div>
-        <span id="player-name">Player</span><span id="player-info"></span>
+        <p id="player-name">Player</p>
+        <p id="player-info"></p>
         <div class="player-grid">
             
         </div>
      </div>
      <div>
-     <span>CPU</span><span id="cpu-info"></span>
+     <p>CPU</p>
+     <p id="cpu-info"></p>
         <div class="computer-grid">
             
         </div> 
     </div>
-    </div>
-    <div class="ships">
-        <div id="ship1" class="ship" data-length="5" draggable="true"></div>
-        <div id="ship2" class="ship" data-length="4" draggable="true"></div>
-        <div id="ship3" class="ship" data-length="3" draggable="true"></div>
-        <div id="ship4" class="ship" data-length="3" draggable="true"></div>
-        <div id="ship5" class="ship" data-length="2" draggable="true"></div> 
     </div>
     <div class="add-name">
         <label for="name-input">Enter your name:</label>
