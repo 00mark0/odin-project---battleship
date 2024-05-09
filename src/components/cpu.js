@@ -88,10 +88,6 @@ export class Cpu {
       this.attackedCells.add(cellKey);
       attackResult = playerBoard.receiveAttack([row, col]);
 
-      if (attackResult !== undefined) {
-        break;
-      }
-
       if (attackResult === "sunk") {
         domElements.playerInfo.textContent = "CPU sank your ship!";
         domElements.playerInfo.style.display = "block";
@@ -100,6 +96,10 @@ export class Cpu {
           domElements.playerInfo.textContent = "";
           domElements.playerInfo.style.display = "none";
         }, 3000);
+      }
+
+      if (attackResult !== undefined) {
+        break;
       }
     }
     return [row, col, attackResult];

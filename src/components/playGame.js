@@ -84,6 +84,15 @@ export function playGame() {
         [attackRow, attackCol, attackResult] = cpu.hardAttack(playerBoard);
       }
 
+      if (playerBoard.allSunk()) {
+        domElements.gameInfo.textContent = "You lose! 😞🙁";
+        gameOngoing = false;
+        cpuCells.forEach((cell) => {
+          cell.removeEventListener("click", cellClick);
+        });
+        return;
+      }
+
       let attackIndex = attackRow * 10 + attackCol;
       let targetCell = document.querySelector(
         `.cell[data-index="${attackIndex}"]`
@@ -94,15 +103,6 @@ export function playGame() {
         return;
       } else {
         targetCell.classList.add("miss");
-      }
-
-      if (playerBoard.allSunk()) {
-        domElements.gameInfo.textContent = "You lose! 😞🙁";
-        gameOngoing = false;
-        cpuCells.forEach((cell) => {
-          cell.removeEventListener("click", cellClick);
-        });
-        return;
       }
 
       e.target.removeEventListener("click", cellClick); // if you want to enable player clicking on the same cell, comment out this line
