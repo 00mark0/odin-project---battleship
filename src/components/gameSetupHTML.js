@@ -2,9 +2,6 @@ import DOMPurify from "dompurify";
 
 const gameSetupHTML = `
 <div class="game-setup">
-    <div class="game-info-container">
-        <p id="game-info"></p> 
-    </div>
     <div class="ships">
         <div><p>Ships:</p></div>
         <div id="ship1" class="ship" data-length="5" draggable="true" title="When selecting a ship, grab it by the green border and place it on the cell you want the ship to start at."></div>
@@ -15,12 +12,15 @@ const gameSetupHTML = `
     </div>
     <div class="grid-container">
      <div>
-        <p id="player-name">Player</p>
+        <p>Player</p>
         <p id="player-info"></p>
         <div class="player-grid">
             
         </div>
      </div>
+     <div class="game-info-container">
+        <p id="game-info"></p> 
+    </div>
      <div>
      <p>CPU</p>
      <p id="cpu-info"></p>
@@ -28,11 +28,6 @@ const gameSetupHTML = `
             
         </div> 
     </div>
-    </div>
-    <div class="add-name">
-        <label for="name-input">Enter your name:</label>
-        <input type="text" id="name-input" name="name-input">
-        <button id="add-name">Add Name</button>
     </div>
     <div class="menu-item">
         <label for="difficulty">Difficulty:</label>
@@ -45,9 +40,9 @@ const gameSetupHTML = `
     <div class="buttons">
         <button id="rotate">Rotate</button>
         <button id="start">Start Game</button>
-        <button id="randomize">Randomize</button>
-        <button id="restart">Restart</button>
-        <button id="back-to-menu">Back</div> 
+        <button id="randomize" title="Press Q on the keyboard to place ships randomly.">Randomize</button>
+        <button id="restart" title="Press C on the keyboard to restart the setup page.">Restart</button>
+        <button id="back-to-menu" title="Press Escape on the keyboard to go back to intro screen.">Back</div> 
     </div>
 </div>
 `;

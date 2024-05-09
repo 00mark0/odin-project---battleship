@@ -13,6 +13,8 @@ export class Cpu {
       { ship: new Ship(2), startPosition: [0, 4], direction: "horizontal" },
     ];
     this.attackedCells = new Set();
+    this.lastHit = null;
+    this.missStreak = 0;
   }
 
   placeShips() {
@@ -91,12 +93,12 @@ export class Cpu {
       }
 
       if (attackResult === "sunk") {
-        domElements.cpuInfo.textContent = "CPU sank a ship!";
-        domElements.cpuInfo.style.display = "block";
+        domElements.playerInfo.textContent = "CPU sank your ship!";
+        domElements.playerInfo.style.display = "block";
 
         setTimeout(function () {
-          domElements.cpuInfo.textContent = "";
-          domElements.cpuInfo.style.display = "none";
+          domElements.playerInfo.textContent = "";
+          domElements.playerInfo.style.display = "none";
         }, 3000);
       }
     }
@@ -106,63 +108,55 @@ export class Cpu {
   mediumAttack(playerBoard) {
     let row, col;
     let attackResult;
+    let domElements = initDomElements();
 
-    if (this.lastHit) {
-      // target mode
-      let [lastRow, lastCol] = this.lastHit;
-      let adjacentCells = [
-        [lastRow - 1, lastCol],
-        [lastRow + 1, lastCol],
-        [lastRow, lastCol - 1],
-        [lastRow, lastCol + 1],
-      ];
-      // filter out cells that are out of bounds or have already been attacked
-      adjacentCells = adjacentCells.filter(([row, col]) => {
-        return (
-          row >= 0 &&
-          row < 10 &&
-          col >= 0 &&
-          col < 10 &&
-          !this.attackedCells.has(`${row},${col}`)
-        );
-      });
-      if (adjacentCells.length > 0) {
-        // choose a random cell from the valid adjacent cells
-        let randomIndex = Math.floor(Math.random() * adjacentCells.length);
-        [row, col] = adjacentCells[randomIndex];
-      } else {
-        // no valid adjacent cells, go back to hunt mode
-        this.lastHit = null;
-        do {
-          row = Math.floor(Math.random() * 10);
-          col = Math.floor(Math.random() * 10);
-        } while (this.attackedCells.has(`${row},${col}`));
+    // get all cells that have not been attacked yet
+    let nonAttackedCells = [];
+
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if (!this.attackedCells.has(`${i},${j}`)) {
+          nonAttackedCells.push([i, j]);
+        }
       }
+    }
+
+    // decide whether to hit or miss based on a random number
+    let randomNumber = Math.random();
+
+    // filter cells based on whether they contain a ship or not
+    let cellsWithShips = nonAttackedCells.filter(
+      ([i, j]) => playerBoard.board[i][j] !== null
+    );
+    let cellsWithoutShips = nonAttackedCells.filter(
+      ([i, j]) => playerBoard.board[i][j] === null
+    );
+
+    if (randomNumber < 0.2 && cellsWithShips.length > 0) {
+      // choose a random cell that contains a ship
+      let randomIndex = Math.floor(Math.random() * cellsWithShips.length);
+      [row, col] = cellsWithShips[randomIndex];
+    } else if (cellsWithoutShips.length > 0) {
+      // choose a random cell that does not contain a ship
+      let randomIndex = Math.floor(Math.random() * cellsWithoutShips.length);
+      [row, col] = cellsWithoutShips[randomIndex];
     } else {
-      // hunt mode
-      do {
-        row = Math.floor(Math.random() * 10);
-        col = Math.floor(Math.random() * 10);
-      } while (this.attackedCells.has(`${row},${col}`));
+      // all cells have been attacked
+      return null;
     }
 
-    this.attackedCells.add(`${row},${col}`);
+    // attack the chosen cell
     attackResult = playerBoard.receiveAttack([row, col]);
-
-    if (attackResult === "hit") {
-      this.lastHit = [row, col];
-    }
+    this.attackedCells.add(`${row},${col}`);
 
     if (attackResult === "sunk") {
-      let domElements = initDomElements();
-      domElements.cpuInfo.textContent = "CPU sank a ship!";
-      domElements.cpuInfo.style.display = "block";
+      domElements.playerInfo.textContent = "CPU sank your ship!";
+      domElements.playerInfo.style.display = "block";
 
       setTimeout(function () {
-        domElements.cpuInfo.textContent = "";
-        domElements.cpuInfo.style.display = "none";
+        domElements.playerInfo.textContent = "";
+        domElements.playerInfo.style.display = "none";
       }, 3000);
-      this.lastHit = null;
     }
 
     return [row, col, attackResult];
@@ -170,75 +164,56 @@ export class Cpu {
 
   hardAttack(playerBoard) {
     let row, col;
-    let lastHit = Array.from(this.attackedCells).pop();
-    if (lastHit) {
-      // target mode
-      let [lastRow, lastCol] = lastHit.split(",").map(Number);
-      let adjacentCells = [
-        [lastRow - 1, lastCol],
-        [lastRow + 1, lastCol],
-        [lastRow, lastCol - 1],
-        [lastRow, lastCol + 1],
-      ];
-      // filter out cells that are out of bounds or have already been attacked
-      adjacentCells = adjacentCells.filter(([row, col]) => {
-        return (
-          row >= 0 &&
-          row < 10 &&
-          col >= 0 &&
-          col < 10 &&
-          !this.attackedCells.has(`${row},${col}`)
-        );
-      });
-      if (adjacentCells.length > 0) {
-        // prioritize cells that are in the same direction as the last hit
-        let direction = this.lastDirection || [0, 1]; // default to horizontal direction
-        adjacentCells.sort(([row1, col1], [row2, col2]) => {
-          let direction1 = [row1 - lastRow, col1 - lastCol];
-          let direction2 = [row2 - lastRow, col2 - lastCol];
-          return (
-            Math.abs(direction1[0] - direction[0]) +
-            Math.abs(direction1[1] - direction[1]) -
-            (Math.abs(direction2[0] - direction[0]) +
-              Math.abs(direction2[1] - direction[1]))
-          );
-        });
-        // choose the first cell, which is the most prioritized
-        [row, col] = adjacentCells[0];
-        this.lastDirection = [row - lastRow, col - lastCol];
-      } else {
-        // no valid adjacent cells, go back to hunt mode
-        do {
-          row = Math.floor(Math.random() * 10);
-          col = Math.floor(Math.random() * 10);
-        } while (this.attackedCells.has(`${row},${col}`));
-        this.lastDirection = null;
-      }
-    } else {
-      // hunt mode
-      do {
-        row = Math.floor(Math.random() * 10);
-        col = Math.floor(Math.random() * 10);
-      } while (this.attackedCells.has(`${row},${col}`));
-      this.lastDirection = null;
-    }
-    this.attackedCells.add(`${row},${col}`);
-    let attackResult = playerBoard.receiveAttack([row, col]);
+    let attackResult;
+    let domElements = initDomElements();
 
-    if (attackResult === "hit") {
-      this.lastHit = `${row},${col}`;
+    // get all cells that have not been attacked yet
+    let nonAttackedCells = [];
+
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if (!this.attackedCells.has(`${i},${j}`)) {
+          nonAttackedCells.push([i, j]);
+        }
+      }
     }
+
+    // decide whether to hit or miss based on a random number
+    let randomNumber = Math.random();
+
+    // filter cells based on whether they contain a ship or not
+    let cellsWithShips = nonAttackedCells.filter(
+      ([i, j]) => playerBoard.board[i][j] !== null
+    );
+    let cellsWithoutShips = nonAttackedCells.filter(
+      ([i, j]) => playerBoard.board[i][j] === null
+    );
+
+    if (randomNumber < 0.5 && cellsWithShips.length > 0) {
+      // choose a random cell that contains a ship
+      let randomIndex = Math.floor(Math.random() * cellsWithShips.length);
+      [row, col] = cellsWithShips[randomIndex];
+    } else if (cellsWithoutShips.length > 0) {
+      // choose a random cell that does not contain a ship
+      let randomIndex = Math.floor(Math.random() * cellsWithoutShips.length);
+      [row, col] = cellsWithoutShips[randomIndex];
+    } else {
+      // all cells have been attacked
+      return null;
+    }
+
+    // attack the chosen cell
+    attackResult = playerBoard.receiveAttack([row, col]);
+    this.attackedCells.add(`${row},${col}`);
 
     if (attackResult === "sunk") {
-      let domElements = initDomElements();
-      domElements.cpuInfo.textContent = "CPU sank a ship!";
-      domElements.cpuInfo.style.display = "block";
+      domElements.playerInfo.textContent = "CPU sank your ship!";
+      domElements.playerInfo.style.display = "block";
 
       setTimeout(function () {
-        domElements.cpuInfo.textContent = "";
-        domElements.cpuInfo.style.display = "none";
+        domElements.playerInfo.textContent = "";
+        domElements.playerInfo.style.display = "none";
       }, 3000);
-      this.lastDirection = null;
     }
 
     return [row, col, attackResult];

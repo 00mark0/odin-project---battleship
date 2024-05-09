@@ -3,8 +3,27 @@ import { playerBoard } from "./dragDrop";
 import initDomElements from "./domElements";
 import confetti from "canvas-confetti";
 
-export function playGame(difficulty) {
+export function playGame() {
   let domElements = initDomElements();
+  let difficulty = document.querySelector("#difficulty").value;
+
+  if (playerBoard.ships.length < 5) {
+    domElements.gameInfo.textContent = "Please place all ships.";
+    return;
+  }
+
+  domElements.gameInfo.textContent = "";
+
+  console.log(difficulty);
+
+  domElements.menuItem.style.display = "none";
+  domElements.rotate.style.display = "none";
+  domElements.start.style.display = "none";
+  domElements.randomize.style.display = "none";
+  domElements.backToMenu.style.display = "none";
+
+  domElements.restart.style.marginLeft = "25px";
+
   let cpu = new Cpu();
   let cpuCells = document.querySelectorAll(".cpu-cell");
   let gameOngoing = true;
@@ -28,12 +47,12 @@ export function playGame(difficulty) {
       }
 
       if (result === "sunk") {
-        domElements.playerInfo.textContent = "You sank a ship!";
-        domElements.playerInfo.style.display = "block";
+        domElements.cpuInfo.textContent = "You sank a ship!";
+        domElements.cpuInfo.style.display = "block";
 
         setTimeout(function () {
-          domElements.playerInfo.textContent = "";
-          domElements.playerInfo.style.display = "none";
+          domElements.cpuInfo.textContent = "";
+          domElements.cpuInfo.style.display = "none";
         }, 3000);
       }
 
