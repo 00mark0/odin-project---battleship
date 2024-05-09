@@ -46,8 +46,8 @@ var sn=(r,e)=>()=>(e||r((e={exports:{}}).exports,e),e.exports);var Un=sn((Bn,De)
     </div>
     <div class="buttons">
         <button id="rotate">Rotate</button>
-        <button id="start">Start Game</button>
         <button id="randomize" title="Press Q on the keyboard to place ships randomly.">Randomize</button>
+        <button id="start">Start Game</button>
         <button id="restart" title="Press C on the keyboard to restart the setup page.">Restart</button>
         <button id="back-to-menu" title="Press Escape on the keyboard to go back to intro screen.">Back</div> 
     </div>
