@@ -325,6 +325,7 @@
 
 #rotate {
   font-size: 1em;
+  font-family: "Orbitron", sans-serif;
   font-weight: 500;
   padding: 5px;
   margin: 10px;
@@ -344,6 +345,7 @@
 
 #start {
   font-size: 1em;
+  font-family: "Orbitron", sans-serif;
   font-weight: 500;
   padding: 5px;
   margin: 10px;
@@ -363,6 +365,7 @@
 
 #randomize {
   font-size: 1em;
+  font-family: "Orbitron", sans-serif;
   font-weight: 500;
   padding: 5px;
   margin: 10px;
@@ -382,6 +385,7 @@
 
 #restart {
   font-size: 1em;
+  font-family: "Orbitron", sans-serif;
   font-weight: 500;
   padding: 5px;
   margin: 10px;
@@ -401,6 +405,7 @@
 
 #back-to-menu {
   font-size: 1em;
+  font-family: "Orbitron", sans-serif;
   font-weight: 500;
   padding: 5px;
   margin: 10px;
