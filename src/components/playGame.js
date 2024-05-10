@@ -33,6 +33,13 @@ export function playGame() {
   cpuCells.forEach((cell) => {
     cell.addEventListener("click", function cellClick(e) {
       if (!gameOngoing) return;
+
+      if (
+        e.target.classList.contains("hit") ||
+        e.target.classList.contains("miss")
+      )
+        return;
+
       console.clear();
       console.log("player:", playerBoard.board);
       console.log("cpu:", cpu.board.board);
@@ -40,6 +47,7 @@ export function playGame() {
       let row = Math.floor(index / 10);
       let col = index % 10;
       let result = cpu.board.receiveAttack([row, col]);
+
       if (result) {
         e.target.classList.add("hit");
       } else {
@@ -52,7 +60,6 @@ export function playGame() {
 
         setTimeout(function () {
           domElements.cpuInfo.textContent = "";
-          domElements.cpuInfo.style.display = "none";
         }, 3000);
       }
 
@@ -104,8 +111,6 @@ export function playGame() {
       } else {
         targetCell.classList.add("miss");
       }
-
-      e.target.removeEventListener("click", cellClick); // if you want to enable player clicking on the same cell, comment out this line
     });
   });
 }

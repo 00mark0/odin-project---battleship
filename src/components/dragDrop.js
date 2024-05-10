@@ -46,7 +46,6 @@ export function handleDrop(e) {
 
       setTimeout(function () {
         domElements.gameInfo.textContent = "";
-        domElements.gameInfo.style.display = "none";
       }, 3000);
     }
   } else {
@@ -69,7 +68,6 @@ export function handleDrop(e) {
 
       setTimeout(function () {
         domElements.gameInfo.textContent = "";
-        domElements.gameInfo.style.display = "none";
       }, 3000);
     }
   }

@@ -94,7 +94,6 @@ export class Cpu {
 
         setTimeout(function () {
           domElements.playerInfo.textContent = "";
-          domElements.playerInfo.style.display = "none";
         }, 3000);
       }
 
@@ -155,7 +154,6 @@ export class Cpu {
 
       setTimeout(function () {
         domElements.playerInfo.textContent = "";
-        domElements.playerInfo.style.display = "none";
       }, 3000);
     }
 
@@ -212,7 +210,6 @@ export class Cpu {
 
       setTimeout(function () {
         domElements.playerInfo.textContent = "";
-        domElements.playerInfo.style.display = "none";
       }, 3000);
     }
 

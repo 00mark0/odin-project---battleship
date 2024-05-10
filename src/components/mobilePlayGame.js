@@ -33,6 +33,13 @@ export function mobilePlayGame() {
   cpuCells.forEach((cell) => {
     cell.addEventListener("click", function cellClick(e) {
       if (!gameOngoing) return;
+
+      if (
+        e.target.classList.contains("hit") ||
+        e.target.classList.contains("miss")
+      )
+        return;
+
       console.clear();
       console.log("player:", mobilePlayerBoard.board);
       console.log("cpu:", cpu.board.board);
@@ -40,6 +47,7 @@ export function mobilePlayGame() {
       let row = Math.floor(index / 10);
       let col = index % 10;
       let result = cpu.board.receiveAttack([row, col]);
+
       if (result) {
         e.target.classList.add("hit");
       } else {

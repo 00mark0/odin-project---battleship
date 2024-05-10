@@ -38,7 +38,6 @@ export function mobileShipPlacement(e) {
 
       setTimeout(function () {
         domElements.gameInfo.textContent = "";
-        domElements.gameInfo.style.display = "none";
       }, 3000);
     }
   } else {
@@ -60,7 +59,6 @@ export function mobileShipPlacement(e) {
 
       setTimeout(function () {
         domElements.gameInfo.textContent = "";
-        domElements.gameInfo.style.display = "none";
       }, 3000);
     }
   }

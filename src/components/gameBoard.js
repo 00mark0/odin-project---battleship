@@ -21,7 +21,6 @@ export class GameBoard {
 
           setTimeout(function () {
             domElements.gameInfo.textContent = "";
-            domElements.gameInfo.style.display = "none";
           }, 3000);
         }
         if (this.board[startRow][startCol + i] !== null) {
@@ -31,7 +30,6 @@ export class GameBoard {
 
           setTimeout(function () {
             domElements.gameInfo.textContent = "";
-            domElements.gameInfo.style.display = "none";
           }, 3000);
         }
         this.board[startRow][startCol + i] = ship; // place part of the ship
@@ -42,7 +40,6 @@ export class GameBoard {
 
           setTimeout(function () {
             domElements.gameInfo.textContent = "";
-            domElements.gameInfo.style.display = "none";
           }, 3000);
         }
         if (this.board[startRow + i][startCol] !== null) {
@@ -52,7 +49,6 @@ export class GameBoard {
 
           setTimeout(function () {
             domElements.gameInfo.textContent = "";
-            domElements.gameInfo.style.display = "none";
           }, 3000);
         }
         this.board[startRow + i][startCol] = ship; // place part of the ship
