@@ -83,6 +83,15 @@ export function playGame() {
 
       console.log(difficulty);
 
+      if (playerBoard.allSunk()) {
+        domElements.gameInfo.textContent = "You lose! 😞🙁";
+        gameOngoing = false;
+        cpuCells.forEach((cell) => {
+          cell.removeEventListener("click", cellClick);
+        });
+        return;
+      }
+
       if (difficulty === "easy") {
         [attackRow, attackCol, attackResult] = cpu.easyAttack(playerBoard);
       } else if (difficulty === "medium") {
@@ -102,15 +111,6 @@ export function playGame() {
         return;
       } else {
         targetCell.classList.add("miss");
-      }
-
-      if (playerBoard.allSunk()) {
-        domElements.gameInfo.textContent = "You lose! 😞🙁";
-        gameOngoing = false;
-        cpuCells.forEach((cell) => {
-          cell.removeEventListener("click", cellClick);
-        });
-        return;
       }
     });
   });
