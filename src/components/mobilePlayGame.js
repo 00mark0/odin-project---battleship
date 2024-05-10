@@ -95,19 +95,11 @@ export function mobilePlayGame() {
           cpu.hardAttack(mobilePlayerBoard);
       }
 
-      if (mobilePlayerBoard.allSunk()) {
-        domElements.gameInfo.textContent = "You lose! 😞🙁";
-        gameOngoing = false;
-        cpuCells.forEach((cell) => {
-          cell.removeEventListener("click", cellClick);
-        });
-        return;
-      }
-
       let attackIndex = attackRow * 10 + attackCol;
       let targetCell = document.querySelector(
         `.cell[data-index="${attackIndex}"]`
       );
+
       if (attackResult) {
         targetCell.classList.remove("occupied");
         targetCell.classList.add("hit");
@@ -116,7 +108,14 @@ export function mobilePlayGame() {
         targetCell.classList.add("miss");
       }
 
-      e.target.removeEventListener("click", cellClick); // if you want to enable player clicking on the same cell, comment out this line
+      if (mobilePlayerBoard.allSunk()) {
+        domElements.gameInfo.textContent = "You lose! 😞🙁";
+        gameOngoing = false;
+        cpuCells.forEach((cell) => {
+          cell.removeEventListener("click", cellClick);
+        });
+        return;
+      }
     });
   });
 }

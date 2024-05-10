@@ -91,6 +91,19 @@ export function playGame() {
         [attackRow, attackCol, attackResult] = cpu.hardAttack(playerBoard);
       }
 
+      let attackIndex = attackRow * 10 + attackCol;
+      let targetCell = document.querySelector(
+        `.cell[data-index="${attackIndex}"]`
+      );
+
+      if (attackResult) {
+        targetCell.classList.remove("occupied");
+        targetCell.classList.add("hit");
+        return;
+      } else {
+        targetCell.classList.add("miss");
+      }
+
       if (playerBoard.allSunk()) {
         domElements.gameInfo.textContent = "You lose! 😞🙁";
         gameOngoing = false;
@@ -98,18 +111,6 @@ export function playGame() {
           cell.removeEventListener("click", cellClick);
         });
         return;
-      }
-
-      let attackIndex = attackRow * 10 + attackCol;
-      let targetCell = document.querySelector(
-        `.cell[data-index="${attackIndex}"]`
-      );
-      if (attackResult) {
-        targetCell.classList.remove("occupied");
-        targetCell.classList.add("hit");
-        return;
-      } else {
-        targetCell.classList.add("miss");
       }
     });
   });
